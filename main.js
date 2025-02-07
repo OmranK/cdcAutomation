@@ -39,7 +39,7 @@ fs.createReadStream(filePath)
 (async() => {
     const browser = await puppeteer.launch({ headless: false, args: ['--start-maximized'] } );
     const page = await browser.newPage();
-    await page.setViewport({width: 2560, height: 2880, isMobile: false, hasTouch: false, deviceScaleFactor: 1});
+    await page.setViewport({width: 1512, height: 982, isMobile: false, hasTouch: false, deviceScaleFactor: 1});
     await page.goto("https://www.cdc.gov/bmi/child-teen-calculator/index.html");
     for (const person of people) {
         // console.log("Attempting to parse - " + row);
