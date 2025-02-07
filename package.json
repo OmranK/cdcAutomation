@@ -1,0 +1,17 @@
+{
+  "name": "cdcautomation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "csv-parser": "^3.2.0",
+    "puppeteer": "^24.1.1"
+  }
+}
