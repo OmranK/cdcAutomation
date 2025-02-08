@@ -21,9 +21,9 @@ class Person {
       this.obesity = ""
       this.severeObesity = ""
     }
-  }
+}
   
-  const people = [];
+const people = [];
 
 fs.createReadStream(filePath)
 .pipe(csv())
@@ -35,8 +35,8 @@ fs.createReadStream(filePath)
     console.log("Sucessfully mapped input");
 });
 
-  
 (async() => {
+    createCSVFile()
     const browser = await puppeteer.launch({ headless: false, args: ['--start-maximized'] } );
     const page = await browser.newPage();
     await page.setViewport({width: 1512, height: 982, isMobile: false, hasTouch: false, deviceScaleFactor: 1});
@@ -81,8 +81,40 @@ fs.createReadStream(filePath)
                 person.severeObesity = "1"
                 break;
         }
+        appendPersonToCSV(person)
         await page.click('.back_btn');
     }
-    console.log(people)
     await browser.close();
 })();
+
+function createCSVFile() {
+    const headers = [
+        'uuid', 'sex', 'age', 'height', 'weight', 
+        'healthy', 'underweight', 'overweight', 'obesity', 'severeObesity'
+    ];
+    const csvString = headers.join(',') + '\n';  // Create the CSV string with headers
+
+    // Write the CSV file with headers, creating the file if it doesn't exist
+    fs.writeFileSync('output.csv', csvString, 'utf8');
+}
+
+// Function to append a person to the CSV file
+function appendPersonToCSV(person) {
+    const row = [
+        person.uuid,
+        person.sex,
+        person.age,
+        person.height,
+        person.weight,
+        person.healthy,
+        person.underweight,
+        person.overweight,
+        person.obesity,
+        person.severeObesity
+    ];
+    const csvRow = row.join(',') + '\n';  // Join values with commas and add newline
+
+    // Append the person data to the CSV file
+    fs.appendFileSync('output.csv', csvRow, 'utf8');
+    console.log(`Person ${person.uuid} data appended to output.csv`);
+}
